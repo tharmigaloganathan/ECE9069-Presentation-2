@@ -45,9 +45,14 @@ Let's dive right into the exploit now!
 
 ## The Exploit
 
-Impacts the TMUI (configuration utility for the BIG-IP). 
-
-
+This code injection vulnerability impacts the TMUI (configuration utility for the BIG-IP) and can allow unauthenicated users to execute system commands, create or delete files, disable services or execute Java code. The TMUI is a web application that is installed within the device that provides an admin interface. The following is the vulnerable URL:
+```
+https://[hostname]/tmui/login.jsp
+```
+The exploit is a "..;", the following is an exploitable URL that will return a list of all of the admin users along with their password hashes:
+```
+/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=list+auth+user+admin
+```
 
 VLANs and Self IP Configuration "self ip"
   Static self-ip - health monitoring ,single machine
