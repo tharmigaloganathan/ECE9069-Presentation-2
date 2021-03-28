@@ -95,12 +95,15 @@ https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command
 
 [The typical sequence]
 
-## Mitigation
+## Detecting Exploits 
 
 Test to see if you are vulnerable
 ```
 https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/fileRead.jsp?fileName=/etc/f5-release
 ```
+[check logs]
+
+## Mitigation
 
 Check if you are vulnerable: code 
 Check logs to see if you have been exploited
