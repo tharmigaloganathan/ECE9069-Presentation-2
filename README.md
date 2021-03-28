@@ -31,17 +31,9 @@ _The CVE 2020-5902 vulnerability impacted F5 Network's suite of load-balancing s
 
 BIG-IP is a family of software and hardware solutions from F5 Networks. While it originally started out as a load balancer, it has now expanded to offer complimentary services such as traffic management, access control, security and optimization. Load balancers work by providing a virtual IP on behalf of numerous other devices. This is a service that allows large scale applications to seamlessly serve its customers without a bottleneck. 
 
-This exploit is particularly impactful because it can not only impact the load balancing server itself but also any device that is behind a BIG-IP load balancer. 
-
-Load balancer, virtual IP address on behalf of devices behind it
-Traffic management, high availability, acccess control, secuirty, optimization
-Both hardward and software solutions
-[used to manage high traffic applications, load balancing]
-at the very basics: a load balancer, but also...
-  firewall, tls inspection, offload, authentication
+This exploit is particularly impactful because it can not only impact the load balancing server itself but also any device that is behind the load balancer. 
   
-Even if you aren't running an F% BIGIP device, if you have some sort of javascript library that is linking to some website that is behind and F5 device, you could be vulnerable as well
-  Solution: subresource integrity, its a hash?
+Moreover, even if you aren't running an F5 BIG-IP device, but have some external link to a javascript library included in your application, your application may also be exposed! If the resource happens to be behind a BIG-IP load balancer that is vulnerable, your application can also be exploited. Using subresource integrity can help make you immune to this sort of vulnerability and it is also best practice when it comes to including external libraries in your application, more on this will be discussed later in the reprot. This highlights the importance of staying on top of cybersecurity news and taking all precautions posisble when building your application!
 
 ### CVE Timeline
 
