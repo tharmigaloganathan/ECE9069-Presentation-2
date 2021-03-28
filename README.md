@@ -27,7 +27,7 @@ _The CVE 2020-5902 vulnerability impacted F5 Network's suite of load-balancing s
 * So this is a story on why it's important to secure your permissions, and stay up to date on big vulnerabilities that come out!
   
 
-## What is BIG-IP? + Impact
+## What is BIG-IP? + Why Should I Care?
 
 BIG-IP is a family of software and hardware solutions from F5 Networks. While it originally started out as a load balancer, it has now expanded to offer complimentary services such as traffic management, access control, security and optimization. Load balancers work by providing a virtual IP on behalf of numerous other devices. This is a service that allows large scale applications to seamlessly serve its customers without a bottleneck. 
 
@@ -37,11 +37,17 @@ Moreover, even if you aren't running an F5 BIG-IP device, but have some external
 
 ## CVE Timeline
 
-The very day the exploit got out, F5 Networks has created many articles, videos, and Q&A sessions designed to help its customers keep their systems safe. 
+There has been a rise in the number of vulnerabilities among similar software products around the time this vulnerability came out. The very day the exploit got out, F5 Networks has created many articles, videos, and Q&A sessions designed to help its customers keep their systems safe. But it didn't take long for **many** proof of concept code snippets to pop up on GitHub.
 
+![alt text](https://www.tenable.com/sites/drupal.dmz.tenablesecurity.com/files/images/blog/PoC%20scripts%20published%20to%20GitHub.png "GitHub Exploit Code")
 
+Let's dive right into the exploit now!
 
 ## The Exploit
+
+Impacts the TMUI (configuration utility for the BIG-IP). 
+
+
 
 VLANs and Self IP Configuration "self ip"
   Static self-ip - health monitoring ,single machine
