@@ -1,5 +1,15 @@
 # CVE 2020-5902
 
+Intro, scale
+What is BIGIP
+The exploit
+Create alias explanation
+How to check if you are vulnerable
+Mitigation
+Could still be impacted, use resource integrity!
+  explain
+So this is a story on why it's important to secure your permissions, and stay up to date on big vulnerabilities that come out!
+ 
 CVSS 3.x: 9.8 (Critical)
 
 CVSS 2.0: 10.0 (High)
@@ -11,7 +21,7 @@ Impactful becasue it can attack any application behind an LTM
   2000 actually vulnerable
   
 
-### What is BIG-IP?
+### What is BIG-IP? Impact
 
 BIG-IP is a family of software products from F5 Networks. These products offer an wide variety of different application access and security functions.
 
@@ -21,6 +31,9 @@ Both hardward and software solutions
 [used to manage high traffic applications, load balancing]
 at the very basics: a load balancer, but also...
   firewall, tls inspection, offload, authentication
+  
+Even if you aren't running an F% BIGIP device, if you have some sort of javascript library that is linking to some website that is behind and F5 device, you could be vulnerable as well
+  Solution: subresource integrity, its a hash?
 
 ### CVE Timeline
 
@@ -58,6 +71,12 @@ TMUI/Configuration Utility
 
 
 ### Mitigation
+
+Check if you are vulnerable: code 
+Check logs to see if you have been exploited
+Never expose admin interface to the public
+  F5 has said multiple times not to do this
+  But if you did anyway, you are vulnerable
 
 • update software
 • ensure mgmt port is not publically accessible
