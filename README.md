@@ -1,24 +1,30 @@
 # CVE 2020-5902
 
-Intro, scale
-What is BIGIP - load balancer
-The exploit
-Create alias explanation
-How to check if you are vulnerable
-Mitigation
-Could still be impacted, use resource integrity!
-  explain
-So this is a story on why it's important to secure your permissions, and stay up to date on big vulnerabilities that come out!
- 
+![alt text](https://www.zdnet.com/a/hub/i/2020/07/03/b6c96e0e-7da9-461a-adff-d6009723189a/f5-networks.jpg "F5 Networks Logo")
+
+_Presented by: Tharmiga Loganathan, Manavjot Singh, Mili Choksi_
+
+**Vulnerability Highlights:**
+
 CVSS 3.x: 9.8 (Critical)
 
 CVSS 2.0: 10.0 (High)
 
-*This vulnerability was exposed in the BIG-IP program last year. It is a version of buffer overflow that can give the hacker root level privileges. What's unique about this progrgam is that it's used by many companies internally to ...*
-Impactful becasue it can attack any application behind an LTM
-8,000 exposed devices according to Shodan
-  What is shodan?
-  2000 actually vulnerable
+_The CVE 2020-5902 vulnerability impacted F5 Network's suite of load-balancing software products called BIG-IP last July. It is a code injection attack that can give hackers root level privileges to vulnerable systems! According to Shodan, there were 8,000 exposed devices at one point with an estimated 2,000 of those devices actually vulnerable to this exploit. This exploit is particularly impactful because it can also impact any device that is behind a BIG-IP load balancer._
+
+> **What is Shodan?**
+> At face value, Shodan is the Google of devices connected to the Internet. However, in more negative use-cases, it can be used streamline the process of searching for vulnerable devices.
+
+**Outline:**
+
+* Intro, scale
+* What is BIGIP - load balancer
+* The exploit
+* Create alias explanation
+* How to check if you are vulnerable
+* Mitigation
+* Could still be impacted, use resource integrity!... explain
+* So this is a story on why it's important to secure your permissions, and stay up to date on big vulnerabilities that come out!
   
 
 ### What is BIG-IP? Impact
