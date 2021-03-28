@@ -10,10 +10,10 @@ CVSS 3.x: 9.8 (Critical)
 
 CVSS 2.0: 10.0 (High)
 
-_The CVE 2020-5902 vulnerability impacted F5 Network's suite of load-balancing software products called BIG-IP last July. It is a code injection attack that can give hackers root level privileges to vulnerable systems! According to Shodan, there were 8,000 exposed devices at one point with an estimated 2,000 of those devices actually vulnerable to this exploit. This exploit is particularly impactful because it can also impact any device that is behind a BIG-IP load balancer._
+_The CVE 2020-5902 vulnerability impacted F5 Network's suite of load-balancing software products called BIG-IP last July. It is a code injection attack that can give hackers root level privileges to vulnerable systems! According to Shodan, there were 8,000 exposed devices at one point with an estimated 2,000 of those devices actually vulnerable to this exploit._
 
 > **What is Shodan?**
-> At face value, Shodan is the Google of devices connected to the Internet. However, in more negative use-cases, it can be used streamline the process of searching for vulnerable devices.
+> At first look, Shodan can be used to search devices connected to the Internet according to different filters. However, in more negative use-cases, it can be used streamline the process of searching for vulnerable devices.
 
 **Outline:**
 
@@ -27,9 +27,11 @@ _The CVE 2020-5902 vulnerability impacted F5 Network's suite of load-balancing s
 * So this is a story on why it's important to secure your permissions, and stay up to date on big vulnerabilities that come out!
   
 
-### What is BIG-IP? Impact
+### What is BIG-IP? + Impact
 
-BIG-IP is a family of software products from F5 Networks. These products offer an wide variety of different application access and security functions.
+BIG-IP is a family of software and hardware solutions from F5 Networks. While it originally started out as a load balancer, it has now expanded to offer complimentary services such as traffic management, access control, security and optimization. Load balancers work by providing a virtual IP on behalf of numerous other devices. This is a service that allows large scale applications to seamlessly serve its customers without a bottleneck. 
+
+This exploit is particularly impactful because it can not only impact the load balancing server itself but also any device that is behind a BIG-IP load balancer. 
 
 Load balancer, virtual IP address on behalf of devices behind it
 Traffic management, high availability, acccess control, secuirty, optimization
@@ -43,8 +45,8 @@ Even if you aren't running an F% BIGIP device, if you have some sort of javascri
 
 ### CVE Timeline
 
-[content]
-[How many affected]
+The very day the exploit got out, F5 Networks has created many articles, videos, and Q&A sessions designed to help its customers keep their systems safe. 
+
 
 
 ### The Exploit
