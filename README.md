@@ -27,7 +27,7 @@ _The CVE 2020-5902 vulnerability impacted F5 Network's suite of load-balancing s
 * So this is a story on why it's important to secure your permissions, and stay up to date on big vulnerabilities that come out!
   
 
-### What is BIG-IP? + Impact
+## What is BIG-IP? + Impact
 
 BIG-IP is a family of software and hardware solutions from F5 Networks. While it originally started out as a load balancer, it has now expanded to offer complimentary services such as traffic management, access control, security and optimization. Load balancers work by providing a virtual IP on behalf of numerous other devices. This is a service that allows large scale applications to seamlessly serve its customers without a bottleneck. 
 
@@ -35,13 +35,13 @@ This exploit is particularly impactful because it can not only impact the load b
   
 Moreover, even if you aren't running an F5 BIG-IP device, but have some external link to a javascript library included in your application, your application may also be exposed! If the resource happens to be behind a BIG-IP load balancer that is vulnerable, your application can also be exploited. Using subresource integrity can help make you immune to this sort of vulnerability and it is also best practice when it comes to including external libraries in your application, more on this will be discussed later in the reprot. This highlights the importance of staying on top of cybersecurity news and taking all precautions posisble when building your application!
 
-### CVE Timeline
+## CVE Timeline
 
 The very day the exploit got out, F5 Networks has created many articles, videos, and Q&A sessions designed to help its customers keep their systems safe. 
 
 
 
-### The Exploit
+## The Exploit
 
 VLANs and Self IP Configuration "self ip"
   Static self-ip - health monitoring ,single machine
@@ -70,7 +70,7 @@ TMUI/Configuration Utility
   Code to check if you are vulnerable
 
 
-### Mitigation
+## Mitigation
 
 Check if you are vulnerable: code 
 Check logs to see if you have been exploited
@@ -83,11 +83,11 @@ Never expose admin interface to the public
 • lock down self ip ports "allow none"
 • var/log to see if it has been breached
 
-### What now?
+## What now?
 
 [content]
 
-### Resources
+## Resources
 
 https://www.tenable.com/blog/cve-2020-5902-critical-vulnerability-in-f5-big-ip-traffic-management-user-interface-tmui
 BIG IP
