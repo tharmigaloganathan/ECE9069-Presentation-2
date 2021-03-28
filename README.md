@@ -1,7 +1,7 @@
 # CVE 2020-5902
 
 Intro, scale
-What is BIGIP
+What is BIGIP - load balancer
 The exploit
 Create alias explanation
 How to check if you are vulnerable
