@@ -45,17 +45,17 @@ The exploit is a "..;" following the above URL. The URL below is an example of a
 > 
 > Execute Command (only allows for tmsh commands):
 > ```
-> /tmui/locallb/workspace/tmshCmd.jsp     // execute commands
+> /tmui/locallb/workspace/tmshCmd.jsp
 > ```
 > 
 > Read Files:
 > ```
-> /tmui/locallb/workspace/fileRead.jsp    // read files
+> /tmui/locallb/workspace/fileRead.jsp
 > ```
 > 
 > Write Files:
 > ```
-> /tmui/locallb/workspace/fileSave.jsp    // write files
+> /tmui/locallb/workspace/fileSave.jsp
 > ```
 
 While the above execute command can only access tmsh commands, you can use "create alias" to allow execution of any bash command! "Create alias" can be used to link the tmsh "list" command to the "bash" command. The following is what the command will look like:
@@ -86,7 +86,84 @@ Finally, in order to delete the alias and clean up:
 
 ## Why This Exploit Works
 
-[content]
+F5 implements their own PAM and cookie module in the guise of mod_f5_auth_cookie.so inside of which they allow certain URLs to be requested without the need for authentication.
+
+![Screenshot](https://i1.wp.com/research.nccgroup.com/wp-content/uploads/2020/07/Code.png?ssl=1 "Code mod_f5_auth_cookie.so")
+
+We can request /tmui/login.jsp without authentication.
+
+F5’s Big-IP uses **Apache httpd** web server proxying through **Apache Tomcat** for some URLs via **mod_proxy_ajp**.
+
+**proxy_ajp.conf** configuration:
+
+```
+ProxyPassMatch ^/tmui/(.*\.jsp.*)$ ajp://localhost:8009/tmui/$1 retry=5
+ProxyPassMatch ^/hsqldb(.*)$ ajp://localhost:8009/tmui/hsqldb$1 retry=5
+```
+
+**httpd.conf** configuration:
+
+```
+#
+# HSQLDB
+#
+<Location /hsqldb>
+<RequireAll>
+    AuthType Basic
+    AuthName "BIG\-IP"
+    AuthPAM_Enabled on
+    AuthPAM_IdleTimeout 1200
+    require valid-user
+ 
+    Require all granted
+ 
+</RequireAll>
+</Location>
+
+#
+# TMUI
+#
+<Location /tmui>
+    # Enable content compression by type, disable for browsers with known issues
+    <IfModule mod_deflate.c>
+     AddOutputFilterByType DEFLATE text/html text/plain application/x-javascript text/css
+     BrowserMatch ^Mozilla/4 gzip-only-text/html
+     BrowserMatch ^Mozilla/4\.0[678] no-gzip
+     BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    </IfModule>
+ 
+<RequireAll>
+    AuthType Basic
+    AuthName "Restricted area"
+    AuthPAM_Enabled on
+    AuthPAM_ExpiredPasswordsSupport on
+    AuthPam_ValidateIP On
+    AuthPAM_IdleTimeout 1200
+    AuthPAM_DashboardTimeout Off
+    require valid-user
+ 
+    Require all granted
+ 
+</RequireAll>
+</Location>
+```
+
+**NOTE**: *that the mod_ajp config uses regex wildcards and Apache configs dont use wildcards or LocationMatch regex.*
+
+There was a similar vulnerability detected in Apache Tomcats connectors *jk* [CVE-2018-1323](https://nvd.nist.gov/vuln/detail/CVE-2018-1323). This issue is primarily on how Apache Tomcat and Apache httpd handle semicolon(;).
+
+*"Apache httpd interprets semicolons in URL as ordinary characters for path resolution, while Tomcat interprets them as query delimiters (with a similar functionality as “?”)."* [Immunit](https://www.immunit.ch/blog/2018/11/01/cve-2018-11759-apache-mod_jk-access-bypass/)
+
+*“Apache Tomcat is one example of a web server that supports “Path Parameters”. A path parameter is extra content after a file name, separated by a semicolon. Any arbitrary content after a semicolon does not affect the landing page of a web browser.”* [Semicolon vulnerabilities](https://superevr.com/blog/2011/three-semicolon-vulnerabilities)
+
+*“Each path segment can have optional path parameters (also called matrix parameters) which are located at the end of the path segment after a “;”, and separated by “;” characters. Each parameter name is separated from its value by the “=” character like this: “/file;p=1” which defines that the path segment “file” has a path parameter “p” with the value “1”. These parameters are not often used — let’s face it — but they exist nonetheless”* [source](https://www.talisman.org/~erlkonig/misc/lunatech%5Ewhat-every-webdev-must-know-about-url-encoding/)
+
+So Apache Tomcat allows matrix parameters. Looking into the source of Apache httpd, we know that its allows paths with ";". So it will pass the ; to backend without filtering it.
+
+Now moving on to the Apache Tomcat source code, In the **Request.java** file the method **removePathparameters** it will not include the path from the beginning of ";" till the next forward slash("/")
+
+And then the method **normalize** of the **RequestUtil.java** class will remove the previous part of the url containing "/../".
+
 
 ## Detecting Exploits 
 
@@ -127,4 +204,7 @@ This case study highlights the importance of staying on top of cybersecurity new
 [Understanding the Exploit](https://www.youtube.com/watch?v=NmZFwE537Zg&ab_channel=SANSInstitute)
 
 [Protecting Against BIG-IP Vulnerability](https://www.f5.com/services/support/big-ip-vulnerability-cve-2020-5902)
+
+[Understanding the RCA](https://research.nccgroup.com/2020/07/12/understanding-the-root-cause-of-f5-networks-k52145254-tmui-rce-vulnerability-cve-2020-5902)
+
 
