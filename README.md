@@ -45,17 +45,17 @@ The exploit is a "..;" following the above URL. The URL below is an example of a
 > 
 > Execute Command (only allows for tmsh commands):
 > ```
-> /tmui/locallb/workspace/tmshCmd.jsp
+> /tmui/locallb/workspace/tmshCmd.jsp     // execute commands
 > ```
 > 
 > Read Files:
 > ```
-> /tmui/locallb/workspace/fileRead.jsp
+> /tmui/locallb/workspace/fileRead.jsp    // read files
 > ```
 > 
 > Write Files:
 > ```
-> /tmui/locallb/workspace/fileSave.jsp
+> /tmui/locallb/workspace/fileSave.jsp    // write files
 > ```
 
 While the above execute command can only access tmsh commands, you can use "create alias" to allow execution of any bash command! "Create alias" can be used to link the tmsh "list" command to the "bash" command. The following is what the command will look like:
