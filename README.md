@@ -120,9 +120,9 @@ As mentioned earlier, you may still be vulnerable even if you are not using an F
 <script src="https://example.com/something.js" integrity="sha384-oqVuAfap76u8xc" crossorigin="anonymous"></script>
 ```
 
-## What now?
+## Key Takeawyas
 
-This case study highlights the importance of 
+This case study highlights the importance of staying on top of cybersecurity news and to use best practices when configuring and server and/or building any web application.
 
 ## Resources
 
