@@ -16,13 +16,11 @@ _The CVE 2020-5902 vulnerability impacted F5 Network's suite of load-balancing s
 > At first look, Shodan can be used to search devices connected to the Internet according to different filters. However, in more negative use-cases, it can be used streamline the process of searching for vulnerable devices.
   
 
-## What is BIG-IP? + Why Should I Care?
+## What is BIG-IP?
 
 BIG-IP is a family of software and hardware solutions from F5 Networks. While it originally started out as a load balancer, it has now expanded to offer complimentary services such as traffic management, access control, security and optimization. Load balancers work by providing a virtual IP on behalf of numerous other devices. This is a service that allows large scale applications to seamlessly serve its customers without a bottleneck. 
 
 This exploit is particularly impactful because it can not only impact the load balancing server itself but also any device that is behind the load balancer. 
-  
-Moreover, even if you aren't running an F5 BIG-IP device, but have some external link to a javascript library included in your application, your application may also be exposed! If the resource happens to be behind a BIG-IP load balancer that is vulnerable, your application can also be exploited. Using subresource integrity can help make you immune to this sort of vulnerability and it is also best practice when it comes to including external libraries in your application, more on this will be discussed later in the reprot. This highlights the importance of staying on top of cybersecurity news and taking all precautions posisble when building your application!
 
 ## CVE Timeline
 
@@ -86,6 +84,10 @@ Finally, in order to delete the alias and clean up:
 https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list
 ```
 
+## Why This Exploit Works
+
+[content]
+
 ## Detecting Exploits 
 
 The following command can be used as a test to see if you are vulnerable. If the exploit works, it means you are vulnerable and it will simply return the version of BIG-IP you are currently running:
@@ -96,6 +98,9 @@ If you find that you are vulnerable, you may want to also check to check your lo
 
 You are also likely to find files in `/tmp` created by "tomcat" that have bash commands in them.
 
+## How does this impact me?
+
+Even if you aren't running an F5 BIG-IP device, but have some external link to a javascript library included in your application, your application may also be exposed! If the resource happens to be behind a BIG-IP load balancer that is vulnerable, your application can also be exploited. More on how to prevent this vulnerability later. This highlights the importance of staying on top of cybersecurity news and taking all possible precautions when building your application!
 
 ## Mitigation
 
@@ -103,7 +108,7 @@ There is a patch F5 has published, F5 recommends that you update to the latest v
 
 However, the number one way to prevent this is to not expose the admin interface of the server to the public in the first place. Best practice instead would be to require a VPN to access the interface. This was actually warned against by F5 multiple times, but people who haven't listened still remain vulnerable.
 
-As mentioned earlier, you may still be vulnerable even if you are not using an F5 server. If your application contains an external link to a Javascript library for example, and _that_ server is behind a BIG-IP, you may still be vulnerable. Again, the number one prevention in this scenario is to use best practices. Best practices when using external libaries would be to use subresource integrity, this is a hash that is added to the script. This ensures that the browser checks to make sure the has matches each time the library is loaded, if the hash doesn't match, the library won't load altogether and you will remain protected. This is an example of what that might look like:
+As mentioned earlier, you may still be vulnerable even if you are not using an F5 server. If your application contains an external link to a Javascript library for example, and _that_ server is behind a BIG-IP, you may still be vulnerable. Again, the number one prevention in this scenario is to use best practices. Best practices when including external libaries would be to use subresource integrity, this is a hash that is added to the script tag. This ensures that the browser checks to make sure the hash matches each time the library is loaded, if the hash doesn't match, the library won't load altogether and you will remain protected. This is an example of what the script tag might look like with the hash:
 
 ```
 <script src="https://example.com/something.js" integrity="sha384-oqVuAfap76u8xc" crossorigin="anonymous"></script>
