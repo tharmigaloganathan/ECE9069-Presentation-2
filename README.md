@@ -116,7 +116,10 @@ This case study highlights the importance of staying on top of cybersecurity new
 ## Resources
 
 [CVE 2020-5902 Quick Overview and Impact](https://www.tenable.com/blog/cve-2020-5902-critical-vulnerability-in-f5-big-ip-traffic-management-user-interface-tmui)
+
 [What is BIG-IP](https://devcentral.f5.com/s/articles/what-is-big-ip-24596#:~:text=F5's%20BIG%2DIP%20is%20a,access%20control%2C%20and%20security%20solutions.&text=This%20is%20different%20from%20BIG,F5%20Silverline%2C%20F5's%20SaaS%20platform.) 
+
 [Understanding the Exploit](https://www.youtube.com/watch?v=NmZFwE537Zg&ab_channel=SANSInstitute)
+
 [Protecting Against BIG-IP Vulnerability](https://www.f5.com/services/support/big-ip-vulnerability-cve-2020-5902)
 
