@@ -105,17 +105,20 @@ https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/fileRead.jsp?fileNa
 ```
 If you find that you are vulnerable, you may want to also check to check your logs to see if you have been exploited. You may see signs of an exploit by reviewing your logs at `/var/log/audit`. More specifically, based on what we've learned, you may notice a `cmd_data=delete cli alias private list` if a hacker has tried to delete the alias they have created.
 
+You are also likely to find files in `/tmp` created by "tomcat" that have bash commands in them.
+
 
 ## Mitigation
 
-Never expose admin interface to the public
-  F5 has said multiple times not to do this
-  But if you did anyway, you are vulnerable
+There is a patch F5 has published, F5 recommends that you update to the latest version. 
 
-• update software
-• ensure mgmt port is not publically accessible
-• lock down self ip ports "allow none"
-• var/log to see if it has been breached
+However, the number one way to prevent this is to not expose the admin interface of the server to the public in the first place. Best practice instead would be to require a VPN to access the interface. This was actually warned against by F5 multiple times, but people who haven't listened still remain vulnerable.
+
+As mentioned earlier, you may still be vulnerable even if you are not using an F5 server. If your application contains an external link to a Javascript library for example, and _that_ server is behind a BIG-IP, you may still be vulnerable. Again, the number one prevention in this scenario is to use best practices. Best practices when using external libaries would be to use subresource integrity, this is a hash that is added to the script. This ensures that the browser checks to make sure the has matches each time the library is loaded, if the hash doesn't match, the library won't load altogether and you will remain protected. This is an example of what that might look like:
+
+```
+<script src="https://example.com/something.js" integrity="sha384-oqVuAfap76u8xc" crossorigin="anonymous"></script>
+```
 
 ## What now?
 
