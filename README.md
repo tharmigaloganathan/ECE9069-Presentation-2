@@ -97,19 +97,17 @@ Finally, in order to delete the alias and clean up:
 https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/tmshCmd.jsp?command=create+cli+alias+private+list
 ```
 
-
 ## Detecting Exploits 
 
-Test to see if you are vulnerable
+The following command can be used as a test to see if you are vulnerable. If the exploit works, it means you are vulnerable and it will simply return the version of BIG-IP you are currently running:
 ```
 https://[hostname]/tmui/login.jsp/..;/tmui/locallb/workspace/fileRead.jsp?fileName=/etc/f5-release
 ```
-[check logs]
+If you find that you are vulnerable, you may want to also check to check your logs to see if you have been exploited. You may see signs of an exploit by reviewing your logs at `/var/log/audit`. More specifically, based on what we've learned, you may notice a `cmd_data=delete cli alias private list` if a hacker has tried to delete the alias they have created.
+
 
 ## Mitigation
 
-Check if you are vulnerable: code 
-Check logs to see if you have been exploited
 Never expose admin interface to the public
   F5 has said multiple times not to do this
   But if you did anyway, you are vulnerable
@@ -121,7 +119,7 @@ Never expose admin interface to the public
 
 ## What now?
 
-[content]
+This case study highlights the importance of 
 
 ## Resources
 
